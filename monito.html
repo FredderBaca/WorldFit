@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homenaje a Adan Reyes | Worldfit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        /* Estilos base para el cuerpo y transiciones */
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(255, 0, 0, 0.3), 0 4px 6px -2px rgba(255, 0, 0, 0.05); /* Sombra roja sutil */
+        }
+        .quote-carousel {
+            min-height: 8rem; /* Altura mínima para el carrusel */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-950 to-black text-gray-100 min-h-screen flex flex-col">
+
+    <header class="bg-gray-900/90 backdrop-blur sticky top-0 z-10 shadow-xl border-b border-red-800/50">
+        <div class="max-w-6xl mx-auto flex items-center justify-center px-6 py-4">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-widest uppercase">
+                ADAN REYES VEGA
+            </h1>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-6xl mx-auto w-full px-6 py-12">
+        
+        <section class="text-center mb-16 fade-in">
+            <h2 class="text-4xl font-black text-red-500 mb-4">MEMORIA ETERNA</h2>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Adan fue un estudiante de Ingeniería en Telemática, un excelente amigo y compañero lleno de metas y sueños. Aunque partió de este mundo el día 14/07/25, su recuerdo sigue presente y vivo en los corazones de sus compañeros y profesores de la UNAN-León.
+            </p>
+        </section>
+
+        <section class="bg-gray-800 rounded-2xl shadow-2xl p-6 mb-16 quote-carousel fade-in" style="animation-delay: 0.2s;">
+            <div class="flex items-center justify-center h-full">
+                <blockquote class="text-center italic text-xl md:text-2xl text-red-300/80">
+                    <p id="currentQuote" class="transition duration-1000 ease-in-out"></p>
+                    <footer class="mt-4 text-gray-500 text-base font-medium">
+                        — Frase Inspiradora
+                    </footer>
+                </blockquote>
+            </div>
+        </section>
+        
+        <section class="mb-16">
+            <h3 class="text-3xl font-bold text-white mb-8 border-l-4 border-red-500 pl-4 fade-in" style="animation-delay: 0.4s;">
+                Momentos Compartidos
+            </h3>
+            
+            <div id="galleryGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="py-8 border-t border-gray-800 bg-gray-950">
+        <div class="text-center">
+             <a href="administracion.html"
+                class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105 flex items-center justify-center mx-auto w-fit">
+                <i data-feather="heart" class="w-5 h-5 mr-2 fill-current"></i> REGRESAR
+            </a>
+            <p class="mt-4 text-gray-500 text-sm">Worldfit - Siempre en nuestra memoria.</p>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        // ------------------------------------
+        // LÓGICA DE LA GALERÍA
+        // ------------------------------------
+        const photos = [
+            { src: 'src/tropi/1.jpg', alt: 'Adan con amigos en la universidad' },
+            { src: 'src/tropi/2.jpg', alt: 'Adan en el gimnasio' },
+            { src: 'src/tropi/3.jpg', alt: 'Adan en clase de Telemática' },
+            { src: 'src/tropi/4.jpg', alt: 'Retrato de Adan' },
+           
+        ];
+
+        const galleryGrid = document.getElementById('galleryGrid');
+
+        photos.forEach((photo, index) => {
+            const item = document.createElement('div');
+            item.className = `gallery-item shadow-lg fade-in`;
+            item.style.animationDelay = `${0.4 + index * 0.1}s`; // Animación escalonada
+            item.innerHTML = `
+                <img src="${photo.src}" alt="${photo.alt}" 
+                     class="w-full h-48 object-cover object-center transform transition duration-500 ease-in-out hover:scale-110">
+            `;
+            galleryGrid.appendChild(item);
+        });
+
+        // ------------------------------------
+        // LÓGICA DEL CARRUSEL DE FRASES
+        // ------------------------------------
+        const quotes = [
+            "El recuerdo de una gran vida es el mejor legado.",
+            "Aunque no te veamos, estás con nosotros en cada meta.",
+            "Las personas que amamos nunca se van realmente; viven en nuestros corazones.",
+            "La fuerza no viene de la capacidad física, sino de una voluntad indomable."
+        ];
+        
+        const quoteElement = document.getElementById('currentQuote');
+        let currentQuoteIndex = 0;
+
+        function updateQuote() {
+            quoteElement.style.opacity = 0; // Inicia la transición de fade-out
+
+            setTimeout(() => {
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+                quoteElement.textContent = quotes[currentQuoteIndex];
+                quoteElement.style.opacity = 1; // Inicia la transición de fade-in
+            }, 500); // Espera medio segundo (duración del fade-out)
+        }
+
+        // Inicializa la primera frase y luego cambia cada 7 segundos
+        quoteElement.textContent = quotes[currentQuoteIndex];
+        setInterval(updateQuote, 7000); // Cambia de frase cada 7 segundos
+    </script>
+</body>
+</html>

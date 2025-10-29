@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worldfit - Administración</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        /* Estilos básicos para el modal */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .modal {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-100">
+
+    <div class="flex h-screen">
+
+        <aside id="sidebar" class="fixed md:static top-0 left-0 h-full w-64 bg-gray-900 text-white flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-50">
+           <div class="px-6 py-4 flex justify-between items-center ">
+        <img id="closeSidebar" src="src/imagenes/Logo.png">
+        </button>
+      </div>
+
+            <div class="flex flex-col items-center py-6 border-b border-gray-700">
+                <img src="../src/imagenes/perfil.png" alt="perfil" class="w-20 h-20 rounded-full border-2 border-red-500">
+                <h2 class="mt-2 font-semibold">Admin GYM</h2>
+                <span class="text-sm text-gray-400">Administrador</span>
+            </div>
+
+            <div class="px-4 py-2">
+                <input id="searchInput" type="text" placeholder="Buscar..." class="w-full px-3 py-2 rounded bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+            </div>
+
+            <nav class="flex-1 px-2 py-4 space-y-2">
+                <a href="../inicio.html" class="flex items-center px-4 py-2 rounded hover:bg-gray-800 transition">
+                    <i data-feather="home" class="w-5 h-5 mr-3"></i> Inicio
+                </a>
+                <a href="../productos.html" class="flex items-center px-4 py-2 rounded hover:bg-gray-800 transition">
+                    <i data-feather="shopping-cart" class="w-5 h-5 mr-3"></i> Productos
+                </a>
+                <a href="../registro.html" class="flex items-center px-4 py-2 rounded hover:bg-gray-800 transition">
+                    <i data-feather="user-plus" class="w-5 h-5 mr-3"></i> Registro
+                </a>
+                <a href="#" class="bg-red-600 flex items-center px-4 py-2 rounded hover:bg-red-700 transition">
+                    <i data-feather="settings" class="w-5 h-5 mr-3"></i> Administración
+                </a>
+                <a href="../cuentas.html" class="flex items-center px-4 py-2 rounded hover:bg-gray-800 transition">
+                    <i data-feather="user" class="w-5 h-5 mr-3"></i> Cuenta
+                </a>
+            </nav>
+        </aside>
+
+        <div class="flex-1 flex flex-col bg-gray-100">
+
+            <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
+                <button id="openSidebar" class="md:hidden">
+                    <i data-feather="menu" class="w-6 h-6 text-black"></i>
+                </button>
+                
+                <div class="flex items-center space-x-3 ml-auto">
+                    <img class="w-8 h-8 rounded-full" src="../src/imagenes/perfil.png">
+                    <span class="text-black">Admin</span>
+                    <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                </div>
+            </header>
+
+            <main class="flex-1 p-4 md:p-6 space-y-6 overflow-y-auto">
+
+                <section>
+                    <h2 class="text-xl md:text-2xl font-semibold text-red-600 mb-2">Bienvenido al Administrador</h2>
+                    <p class="text-gray-700">Gestiona y controla las áreas principales de tu gimnasio.</p>
+                </section>
+
+                <section class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+
+                    <div id="cardAjustes" class="bg-gray-700 p-6 rounded-2xl shadow hover:scale-105 hover:shadow-lg cursor-pointer transition">
+                        <div class="flex justify-center items-center h-32">
+                            <i data-feather="settings" class="w-16 h-16 text-red-400"></i>
+                        </div>
+                        <h3 class="text-center font-bold text-lg mt-3">Ajustes</h3>
+                        <p class="text-center text-gray-400 text-sm">Actualizar precios de membresía</p>
+                    </div>
+
+                    <a href="PanelAdmon/archivos.html">
+                    <div class="bg-gray-700 p-6 rounded-2xl shadow hover:scale-105 hover:shadow-lg cursor-pointer transition">
+                        <div class="flex justify-center items-center h-32">
+                            <i data-feather="file-text" class="w-16 h-16 text-red-400"></i>
+                        </div>
+                        <h3 class="text-center font-bold text-lg mt-3">Archivos</h3>
+                        <p class="text-center text-gray-400 text-sm">Gestión financiera</p>
+                    </div></a>
+
+                    <a href="PanelAdmon/cliente.html">
+                    <div class="bg-gray-700 p-6 rounded-2xl shadow hover:scale-105 hover:shadow-lg cursor-pointer transition">
+                        <div class="flex justify-center items-center h-32">
+                            <i data-feather="users" class="w-16 h-16 text-red-400"></i>
+                        </div>
+                        <h3 class="text-center font-bold text-lg mt-3">Clientes</h3>
+                        <p class="text-center text-gray-400 text-sm">Recopilación de valores</p>
+                    </div></a>
+
+                    <a href="PanelAdmon/activos.html">
+                    <div class="bg-gray-700 p-6 rounded-2xl shadow hover:scale-105 hover:shadow-lg cursor-pointer transition">
+                        <div class="flex justify-center items-center h-32">
+                            <i data-feather="box" class="w-16 h-16 text-red-400"></i>
+                        </div>
+                        <h3 class="text-center font-bold text-lg mt-3">Activos</h3>
+                        <p class="text-center text-gray-400 text-sm">Registro de inversión</p>
+                    </div></a>
+
+                    <div id="cardContacto" class="bg-gray-700 p-6 rounded-2xl shadow hover:scale-105 hover:shadow-lg cursor-pointer transition">
+                        <div class="flex justify-center items-center h-32">
+                            <i data-feather="phone" class="w-16 h-16 text-red-400"></i>
+                        </div>
+                        <h3 class="text-center font-bold text-lg mt-3">Contacto</h3>
+                        <p class="text-center text-gray-400 text-sm">Mensajería clientes (WhatsApp)</p>
+                    </div>
+
+                    <div id="cardSoporte" class="bg-gray-700 p-6 rounded-2xl shadow hover:scale-105 hover:shadow-lg cursor-pointer transition">
+                        <div class="flex justify-center items-center h-32">
+                            <i data-feather="headphones" class="w-16 h-16 text-red-400"></i>
+                        </div>
+                        <h3 class="text-center font-bold text-lg mt-3">Soporte técnico</h3>
+
+                        <p class="text-center text-gray-400 text-sm">Desarrolladores</p>
+                    </div>
+
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <div id="modalAjustesPrecios" class="hidden fixed inset-0 modal-overlay flex items-center justify-center z-50">
+        <div class="modal bg-white text-black p-6 rounded-lg shadow-xl w-11/12 md:w-1/3">
+           <div class="flex justify-center mb-2"><img src="src/imagenes/Logo.png" alt="logo" height="200px" width="200px"></div>
+            <h2 class="text-2xl font-bold mb-4 text-red-700 border-b pb-2">Actualizar Precios de Membresía</h2>
+            
+            <form id="formPrecios" class="space-y-4">
+                
+                <div class="grid grid-cols-2 gap-4 items-center border-b pb-2">
+                    <label class="font-semibold text-gray-700">Día</label>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Precio Anterior: <strong id="precioAnteriorDia" class="text-red-600">$5.00</strong></p>
+                        <input type="number" id="precioDia" name="dia" value="5.00" step="0.01" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 items-center border-b pb-2">
+                    <label class="font-semibold text-gray-700">Semana</label>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Precio Anterior: <strong id="precioAnteriorSemana" class="text-red-600">$25.00</strong></p>
+                        <input type="number" id="precioSemana" name="semana" value="25.00" step="0.01" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 items-center border-b pb-2">
+                    <label class="font-semibold text-gray-700">Quincena</label>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Precio Anterior: <strong id="precioAnteriorQuincena" class="text-red-600">$45.00</strong></p>
+                        <input type="number" id="precioQuincena" name="quincena" value="45.00" step="0.01" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 items-center">
+                    <label class="font-semibold text-gray-700">Mes</label>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Precio Anterior: <strong id="precioAnteriorMes" class="text-red-600">$80.00</strong></p>
+                        <input type="number" id="precioMes" name="mes" value="80.00" step="0.01" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500">
+                    </div>
+                </div>
+
+            </form>
+            
+            <div class="mt-6 flex justify-end space-x-3">
+                <button id="btnCancelarAjustes" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Cancelar</button>
+                <button id="btnConfirmarAjustes" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modalSoporte" class="hidden fixed inset-0 modal-overlay flex items-center justify-center z-50">
+        <div class="modal bg-white text-black p-6 rounded-lg shadow-xl w-11/12 md:w-1/3">
+          <div class="flex justify-center mb-2"><img src="src/imagenes/Logo.png" alt="logo" height="200px" width="200px"></div>
+            <h2 class="text-2xl font-bold mb-4 text-red-700 border-b pb-2">Soporte Técnico y Desarrolladores</h2>
+            
+            <p class="text-gray-700 mb-4">¡Gracias por usar Worldfit! Este proyecto fue desarrollado por un equipo dedicado. Puedes contactar a los desarrolladores a través de sus perfiles:</p>
+
+            <ul class="space-y-3">
+               <li class="flex items-center">
+                    <i data-feather="code" class="w-5 h-5 mr-3 text-red-600"></i>
+                    <a href="https://facebook.com/developer1_profile" target="_blank" class="text-amber-600 hover:text-amber-800 hover:underline font-medium">Adan Reyes (En honor)</a>
+                </li>
+                <li class="flex items-center">
+                    <i data-feather="code" class="w-5 h-5 mr-3 text-red-600"></i>
+                    <a href="https://facebook.com/developer1_profile" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline font-medium">Fredder Baca (Líder de Proyecto, Backend)</a>
+                </li>
+                <li class="flex items-center">
+                    <i data-feather="code" class="w-5 h-5 mr-3 text-red-600"></i>
+                    <a href="https://facebook.com/developer2_profile" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline font-medium">César Bermudez (Sub Líder, Frontend/UI)</a>
+                </li>
+                <li class="flex items-center">
+                    <i data-feather="code" class="w-5 h-5 mr-3 text-red-600"></i>
+                    <a href="https://facebook.com/developer3_profile" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline font-medium">Jermine Blendes (Frontend/UI)</a>
+                </li>
+                <li class="flex items-center">
+                    <i data-feather="code" class="w-5 h-5 mr-3 text-red-600"></i>
+                    <a href="https://facebook.com/developer3_profile" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline font-medium">Nestor Medina</a>
+                </li>
+                <li class="flex items-center">
+                    <i data-feather="code" class="w-5 h-5 mr-3 text-red-600"></i>
+                    <a href="https://facebook.com/developer3_profile" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline font-medium">Manuel Garcia</a>
+                </li>
+            </ul>
+
+            <div class="mt-6 flex justify-end">
+                <button id="btnCerrarSoporte" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modalContactoCliente" class="hidden fixed inset-0 modal-overlay flex items-center justify-center z-50">
+        <div class="modal bg-white text-black p-6 rounded-lg shadow-xl w-11/12 md:w-2/5">
+           <div class="flex justify-center mb-2"><img src="src/imagenes/Logo.png" alt="logo" height="200px" width="200px"></div>
+            <h2 class="text-2xl font-bold mb-4 text-red-700 border-b pb-2">Contactar Cliente por WhatsApp</h2>
+            
+            <div class="mb-4">
+                <label for="searchCliente" class="block text-sm font-medium text-gray-700 mb-2">Buscar Cliente (Nombre o ID)</label>
+                <input type="text" id="searchCliente" placeholder="Ej: 101 o Juan Pérez" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500">
+                <div id="searchResults" class="mt-2 space-y-1">
+                    </div>
+            </div>
+
+            <div id="messageArea" class="hidden">
+                <p class="text-sm font-semibold mb-2 text-gray-700">Enviando mensaje a: <strong id="selectedClientName"></strong></p>
+                <textarea id="whatsappMessage" rows="4" placeholder="Escribe el mensaje a enviar..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"></textarea>
+                
+                <div class="mt-4 flex justify-end space-x-3">
+                    <button id="btnCancelarContacto" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Cancelar</button>
+                    <button id="btnEnviarWhatsApp" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center">
+                        <i data-feather="send" class="w-5 h-5 mr-2"></i> Enviar WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end" id="closeContactButtonContainer">
+                <button id="btnCerrarContacto" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        feather.replace();
+
+        // --- SIMULACIÓN DE DATOS ---
+        const initialPrices = {
+            dia: 5.00,
+            semana: 25.00,
+            quincena: 45.00,
+            mes: 80.00
+        };
+        // Clientes de ejemplo para la búsqueda de contacto
+        const mockClients = [
+            { id: 101, nombre: "Sofía Martínez", telefono: "50588887777" }, // Nicaragua (Ejemplo)
+            { id: 102, nombre: "Ricardo Gómez", telefono: "50660001234" }, // Costa Rica (Ejemplo)
+            { id: 103, nombre: "Elena Navarro", telefono: "525512345678" }  // México (Ejemplo)
+        ];
+        let selectedClient = null;
+
+
+        // --- MANEJO DEL SIDEBAR Y BUSCADOR ---
+        const sidebar = document.getElementById("sidebar");
+        const openBtn = document.getElementById("openSidebar");
+        const closeBtn = document.getElementById("closeSidebar");
+        openBtn?.addEventListener("click", () => sidebar.classList.remove("-translate-x-full"));
+        closeBtn?.addEventListener("click", () => sidebar.classList.add("-translate-x-full"));
+
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                // Ruta corregida para busqueda.html
+                if (query) {
+                    window.location.href = `../busqueda.html?q=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+
+        // --- FUNCIONES MODALES GLOBALES ---
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // --- 1. LÓGICA MODAL DE AJUSTES DE PRECIOS ---
+        const modalAjustesPrecios = document.getElementById('modalAjustesPrecios');
+        
+        // Asigna evento a la tarjeta
+        document.getElementById('cardAjustes').addEventListener('click', () => {
+            // Muestra los precios anteriores al abrir
+            document.getElementById('precioAnteriorDia').textContent = `$${initialPrices.dia.toFixed(2)}`;
+            document.getElementById('precioAnteriorSemana').textContent = `$${initialPrices.semana.toFixed(2)}`;
+            document.getElementById('precioAnteriorQuincena').textContent = `$${initialPrices.quincena.toFixed(2)}`;
+            document.getElementById('precioAnteriorMes').textContent = `$${initialPrices.mes.toFixed(2)}`;
+            
+            // Inicializa los campos con los precios actuales
+            document.getElementById('precioDia').value = initialPrices.dia.toFixed(2);
+            document.getElementById('precioSemana').value = initialPrices.semana.toFixed(2);
+            document.getElementById('precioQuincena').value = initialPrices.quincena.toFixed(2);
+            document.getElementById('precioMes').value = initialPrices.mes.toFixed(2);
+
+            openModal('modalAjustesPrecios');
+        });
+
+        document.getElementById('btnCancelarAjustes').addEventListener('click', () => {
+            closeModal('modalAjustesPrecios');
+        });
+
+        document.getElementById('btnConfirmarAjustes').addEventListener('click', () => {
+            // Obtener los nuevos valores
+            const newPrices = {
+                dia: parseFloat(document.getElementById('precioDia').value),
+                semana: parseFloat(document.getElementById('precioSemana').value),
+                quincena: parseFloat(document.getElementById('precioQuincena').value),
+                mes: parseFloat(document.getElementById('precioMes').value)
+            };
+
+            // Simular la actualización de precios
+            Object.assign(initialPrices, newPrices);
+            
+            alert('¡Precios actualizados con éxito!');
+            closeModal('modalAjustesPrecios');
+        });
+
+
+        // --- 2. LÓGICA MODAL DE SOPORTE TÉCNICO ---
+        document.getElementById('cardSoporte').addEventListener('click', () => {
+            openModal('modalSoporte');
+        });
+
+        document.getElementById('btnCerrarSoporte').addEventListener('click', () => {
+            closeModal('modalSoporte');
+        });
+
+        // --- 3. LÓGICA MODAL DE CONTACTO CLIENTE ---
+        document.getElementById('cardContacto').addEventListener('click', () => {
+            // Resetear el modal al abrir
+            document.getElementById('searchCliente').value = '';
+            document.getElementById('searchResults').innerHTML = '';
+            document.getElementById('messageArea').classList.add('hidden');
+            document.getElementById('whatsappMessage').value = '';
+            document.getElementById('closeContactButtonContainer').classList.remove('hidden');
+            selectedClient = null;
+
+            openModal('modalContactoCliente');
+        });
+        
+        document.getElementById('btnCerrarContacto').addEventListener('click', () => {
+            closeModal('modalContactoCliente');
+        });
+        document.getElementById('btnCancelarContacto').addEventListener('click', () => {
+            // Vuelve a la vista de búsqueda
+            document.getElementById('messageArea').classList.add('hidden');
+            document.getElementById('closeContactButtonContainer').classList.remove('hidden');
+            document.getElementById('searchCliente').value = '';
+            document.getElementById('searchResults').innerHTML = '';
+            selectedClient = null;
+        });
+
+
+        const searchClienteInput = document.getElementById('searchCliente');
+        const searchResultsDiv = document.getElementById('searchResults');
+        const messageArea = document.getElementById('messageArea');
+
+        searchClienteInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            searchResultsDiv.innerHTML = ''; // Limpiar resultados anteriores
+            messageArea.classList.add('hidden');
+            selectedClient = null;
+
+            if (query.length < 2) return;
+
+            const filteredClients = mockClients.filter(client => 
+                client.nombre.toLowerCase().includes(query) || client.id.toString() === query
+            );
+
+            if (filteredClients.length > 0) {
+                document.getElementById('closeContactButtonContainer').classList.add('hidden'); // Oculta el botón "Cerrar"
+                filteredClients.forEach(client => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'p-3 bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200 text-gray-800 text-sm border-b';
+                    resultItem.innerHTML = `<strong>ID ${client.id}</strong> - ${client.nombre}`;
+                    resultItem.dataset.id = client.id;
+                    resultItem.addEventListener('click', selectClient);
+                    searchResultsDiv.appendChild(resultItem);
+                });
+            } else {
+                 document.getElementById('closeContactButtonContainer').classList.remove('hidden'); // Muestra el botón "Cerrar"
+                 searchResultsDiv.innerHTML = '<p class="text-sm text-red-500 p-2">No se encontraron clientes.</p>';
+            }
+        });
+
+        function selectClient(event) {
+            const clientId = event.currentTarget.dataset.id;
+            selectedClient = mockClients.find(c => c.id == clientId);
+            
+            if (selectedClient) {
+                // Ocultar resultados de búsqueda
+                searchResultsDiv.innerHTML = '';
+                searchClienteInput.value = '';
+                
+                // Mostrar área de mensaje
+                document.getElementById('selectedClientName').textContent = selectedClient.nombre;
+                document.getElementById('whatsappMessage').value = '';
+                messageArea.classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('btnEnviarWhatsApp').addEventListener('click', function() {
+            const message = document.getElementById('whatsappMessage').value.trim();
+            
+            if (!selectedClient) {
+                alert("Por favor, selecciona un cliente primero.");
+                return;
+            }
+            if (!message) {
+                alert("El mensaje no puede estar vacío.");
+                return;
+            }
+            
+            // Lógica para construir el enlace de WhatsApp
+            const tel = selectedClient.telefono;
+            // Codificación del mensaje para la URL
+            const encodedMessage = encodeURIComponent(message);
+            // El formato debe ser https://wa.me/<número>?text=<mensaje_codificado>
+            const whatsappURL = `https://wa.me/${tel}?text=${encodedMessage}`;
+            
+            // Abre una nueva pestaña o ventana con el enlace de WhatsApp
+            window.open(whatsappURL, '_blank');
+            
+            // Cierra el modal después de intentar abrir WhatsApp
+            closeModal('modalContactoCliente');
+            alert(`Se abrió la ventana de WhatsApp para ${selectedClient.nombre}.`);
+        });
+
+    </script>
+</body>
+</html>

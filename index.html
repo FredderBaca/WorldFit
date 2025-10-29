@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worldfit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="relative flex items-center justify-center min-h-screen bg-gray-900 overflow-hidden">
+
+  <!-- Fondo decorativo -->
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-900 to-black"></div>
+
+  <!-- Círculos rojos difuminados -->
+  <div class="absolute top-[-100px] left-[-100px] w-72 h-72 bg-red-600 opacity-25 rounded-full blur-3xl animate-pulse"></div>
+  <div class="absolute bottom-[-120px] right-[-120px] w-80 h-80 bg-red-700 opacity-30 rounded-full blur-3xl animate-pulse"></div>
+  <div class="absolute top-1/2 left-1/4 w-60 h-60 bg-red-500 opacity-10 rounded-full blur-3xl"></div>
+
+  <!-- Contenedor del login -->
+  <div class="relative bg-gray-800 text-white rounded-2xl shadow-2xl p-8 w-11/12 sm:w-96 z-10 border border-gray-700/50 backdrop-blur-sm">
+
+    <!-- Logo y título -->
+    <div class="text-center mb-6">
+      <div class="flex justify-center"><img src="src/imagenes/Logo.png" height="200px" width="200px"></div>
+      <p class="text-gray-400 mt-1">Bienvenido de nuevo</p>
+    </div>
+
+    <!-- Formulario -->
+    <form id="loginForm" class="space-y-5">
+      <div>
+        <label class="block text-sm text-gray-400 mb-1" for="email">Correo electrónico</label>
+        <div class="relative">
+          <i data-feather="mail" class="absolute left-3 top-2.5 text-gray-400"></i>
+          <input id="email" type="email" required
+            class="w-full bg-gray-700 text-white pl-10 pr-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+            placeholder="ejemplo@correo.com">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm text-gray-400 mb-1" for="password">Contraseña</label>
+        <div class="relative">
+          <i data-feather="lock" class="absolute left-3 top-2.5 text-gray-400"></i>
+          <input id="password" type="password" required
+            class="w-full bg-gray-700 text-white pl-10 pr-10 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+            placeholder="••••••••">
+          <button type="button" id="togglePassword" class="absolute right-3 top-2.5 text-gray-400">
+            <i data-feather="eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-sm">
+        <label class="flex items-center space-x-2 text-gray-400">
+          <input type="checkbox" class="form-checkbox text-red-600 bg-gray-700 border-gray-600">
+          <span>Recordarme</span>
+        </label>
+        <a href="#" class="text-red-500 hover:underline">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      
+      <button type="submit"
+        class="w-full bg-red-600 hover:bg-red-700 transition-all duration-300 py-2 rounded-lg font-semibold tracking-wide shadow-lg hover:shadow-red-700/40">
+        Iniciar sesión
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <p class="text-center text-gray-500 text-xs mt-6">
+      © 2025 worldfit. Todos los derechos reservados.
+    </p>
+  </div>
+
+  <script>
+    feather.replace();
+
+    // Mostrar / ocultar contraseña
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", () => {
+      const type = passwordInput.type === "password" ? "text" : "password";
+      passwordInput.type = type;
+      togglePassword.innerHTML = type === "password"
+        ? feather.icons['eye'].toSvg()
+        : feather.icons['eye-off'].toSvg();
+    });
+
+    // Validación simple
+    const form = document.getElementById("loginForm");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (email === "admin@gym.com" && password === "1234") {
+        window.location.href = "inicio.html"; // redirige a tu panel
+      } else {
+        alert("Credenciales incorrectas. Inténtalo de nuevo.");
+      }
+    });
+  </script>
+</body>
+</html>

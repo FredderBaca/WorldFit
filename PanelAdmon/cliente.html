@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worldfit - Historial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    @keyframes scaleIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .animate-scaleIn { animation: scaleIn 0.4s ease forwards; }
+    .animate-fadeIn { animation: fadeIn 0.3s ease forwards; }
+  </style>
+</head>
+<body class="bg-black text-gray-100">
+
+  <div class="flex h-screen">
+
+    <aside id="sidebar" class="fixed md:static top-0 left-0 h-full w-64 bg-gray-900 text-white flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-50">
+      <div class="px-6 py-4 flex justify-between items-center ">
+        <img id="closeSidebar" src="../src/imagenes/Logo.png" class="cursor-pointer">
+      </div>
+      <div class="flex flex-col items-center py-6 border-b border-gray-700">
+        <img src="../src/imagenes/perfil.png" alt="perfil" class="w-20 h-20 rounded-full border-2 border-red-500">
+        <h2 class="mt-2 font-semibold">Admin GYM</h2>
+        <span class="text-sm text-gray-400">Administrador</span>
+      </div>
+      <div class="px-4 py-2">
+        <input type="text" placeholder="Buscar.." class="w-full px-3 py-2 rounded-lg bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+      </div>
+      <nav class="flex-1 px-2 py-4 space-y-2">
+    <a href="../inicio.html" class="flex items-center px-4 py-2 rounded hover:bg-gray-800 transition">
+        <i data-feather="home" class="w-5 h-5 mr-3"></i> Inicio
+    </a>
+    <a href="../productos.html" class="flex items-center px-4 py-2 rounded hover:bg-gray-800 transition">
+        <i data-feather="shopping-cart" class="w-5 h-5 mr-3"></i> Productos
+    </a>
+    <a href="../registro.html" class="flex items-center px-4 py-2 hover:bg-gray-800 rounded">
+        <i data-feather="user-plus" class="w-5 h-5 mr-3"></i> Registro
+    </a>
+    <a href="../administracion.html" class="flex items-center px-4 py-2 bg-red-700 hover:bg-gray-800 rounded">
+        <i data-feather="settings" class="w-5 h-5 mr-3"></i> Administración
+    </a>
+    <a href="../cuentas.html" class="flex items-center px-4 py-2 hover:bg-gray-800 rounded">
+        <i data-feather="user" class="w-5 h-5 mr-3"></i> Cuenta
+    </a>
+</nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col bg-gray-100">
+      <header class="bg-white shadow px-6 py-4 flex justify-between items-center">
+        <button id="openSidebar" class="md:hidden">
+          <i data-feather="menu" class="w-6 h-6 text-black"></i>
+        </button>
+        <div class="flex items-center space-x-3 ml-auto">
+          <img class="w-8 h-8 rounded-full" src="../src/imagenes/perfil.png">
+          <span class="text-black">Admin</span>
+          <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+        </div>
+      </header>
+      <main class="flex-1 p-4 md:p-6 space-y-6 overflow-y-auto">
+        <section>
+         
+          <div class="my-4">
+            <input id="searchInput" type="text" placeholder="Buscar cliente por nombre..." class="w-full px-4 py-3 rounded-lg bg-gray-200 text-black focus:outline-none focus:ring-2 focus:ring-red-500">
+          </div>
+          <div class="hidden md:block overflow-x-auto bg-white rounded-lg shadow">
+            <table class="min-w-full text-left border-collapse text-black text-sm">
+              <thead>
+                <tr class="bg-gray-200 text-gray-700">
+                  <th class="px-4 py-2">ID</th>
+                  <th class="px-4 py-2">Nombre</th>
+                  <th class="px-4 py-2">Teléfono</th>
+                  <th class="px-4 py-2">Última Membresía</th>
+                  <th class="px-4 py-2">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="clientes-body" class="text-black"></tbody>
+            </table>
+          </div>
+          <div id="clientes-cards" class="space-y-4 md:hidden"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="modalEditar" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+      <div class="bg-white text-black p-6 rounded-lg shadow-xl w-11/12 md:w-1/3">
+      <div class="flex justify-center"><img src="src/imagenes/Logo.png" height="200px" width="200px"></div>
+
+          <h2 class="text-xl font-bold mb-4 text-red-700">Editar Cliente</h2>
+          <input type="hidden" id="editId">
+          <div class="space-y-4">
+              <div>
+                  <label for="editNombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+                  <input type="text" id="editNombre" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500">
+              </div>
+              <div>
+                  <label for="editTel" class="block text-sm font-medium text-gray-700">Teléfono</label>
+                  <input type="text" id="editTel" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500">
+              </div>
+              <div>
+                  <label for="anexarDias" class="block text-sm font-medium text-gray-700">Anexar Días a la Membresía</p>
+                  <input type="number" id="anexarDias" placeholder="Ej. 30" min="0" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500">
+              </div>
+          </div>
+          <div class="mt-6 flex justify-end space-x-3">
+              <button id="btnCancelarModal" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">Cancelar</button>
+              <button id="btnGuardarCambios" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Guardar Cambios</button>
+          </div>
+      </div>
+  </div>
+
+  <div id="modalConfirmar" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+    <div class="bg-white text-black p-6 rounded-lg shadow-xl w-11/12 md:w-auto text-center">
+      <div class="flex justify-center"><img src="src/imagenes/Logo.png" height="200px" width="200px"></div>
+        <h2 class="text-xl font-bold mb-4 text-red-700">Confirmar Eliminación</h2>
+        <p>¿Estás seguro de que quieres eliminar a este cliente? <br> Esta acción no se puede deshacer.</p>
+        <div class="mt-6 flex justify-center space-x-3">
+            <button id="btnCancelarEliminar" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 w-28">Cancelar</button>
+            <button id="btnConfirmarEliminar" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 w-28">Eliminar</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="successAnimation" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+      <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center animate-fadeIn">
+          <svg class="w-16 h-16 text-green-500 animate-scaleIn" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+          </svg>
+          <p id="successMessage" class="mt-3 text-lg font-semibold text-green-600">Acción Exitosa</p>
+      </div>
+  </div>
+
+  <script>
+    feather.replace();
+
+    // --- MANEJO DEL SIDEBAR ---
+    const sidebar = document.getElementById("sidebar");
+    const openBtn = document.getElementById("openSidebar");
+    const closeBtn = document.getElementById("closeSidebar");
+    openBtn?.addEventListener("click", () => sidebar.classList.remove("-translate-x-full"));
+    closeBtn?.addEventListener("click", () => sidebar.classList.add("-translate-x-full"));
+
+    // --- DATOS INICIALES ---
+    let clientes = [
+      {id: 1, nombre: "Carlos Pérez", tel: "+505 8888-9999", final: "2025-06-01"},
+      {id: 2, nombre: "María López", tel: "+505 7777-6666", final: "2025-07-15"},
+      {id: 3, nombre: "Juan Martínez", tel: "+505 9999-5555", final: "2025-08-01"},
+      {id: 4, nombre: "Ana Torres", tel: "+505 6666-4444", final: "2025-09-10"},
+      {id: 5, nombre: "Luis Ramírez", tel: "+505 5555-3333", final: "2025-05-28"},
+    ];
+
+    // --- ELEMENTOS DEL DOM ---
+    const tbody = document.getElementById("clientes-body");
+    const cardsContainer = document.getElementById("clientes-cards");
+    const searchInput = document.getElementById("searchInput");
+    const modalEditar = document.getElementById("modalEditar");
+    const btnCancelarModal = document.getElementById("btnCancelarModal");
+    const btnGuardarCambios = document.getElementById("btnGuardarCambios");
+    const modalConfirmar = document.getElementById("modalConfirmar");
+    const btnCancelarEliminar = document.getElementById("btnCancelarEliminar");
+    const btnConfirmarEliminar = document.getElementById("btnConfirmarEliminar");
+    let clienteAEliminarId = null; 
+    
+    // Elementos de la animación de éxito (Añadido)
+    const successAnim = document.getElementById("successAnimation");
+    const successMessage = document.getElementById("successMessage");
+
+    /**
+     * Muestra la animación de éxito con un mensaje personalizado.
+     * @param {string} message - Mensaje a mostrar en la animación.
+     */
+    function mostrarExito(message) {
+        successMessage.textContent = message;
+        successAnim.classList.remove("hidden");
+        // Ocultar la animación después de 2 segundos
+        setTimeout(() => {
+            successAnim.classList.add("hidden");
+        }, 2000);
+    }
+
+    /**
+     * Renderiza la lista de clientes en la tabla y en las tarjetas.
+     */
+    function renderizarClientes(clientesAMostrar) {
+      tbody.innerHTML = "";
+      cardsContainer.innerHTML = "";
+
+      // ... (Resto de la lógica de renderizado, es la misma) ...
+
+      if (clientesAMostrar.length === 0) {
+          const mensaje = `<p class="text-center text-gray-500 col-span-full py-4">No se encontraron clientes.</p>`;
+          tbody.innerHTML = `<tr><td colspan="5">${mensaje}</td></tr>`;
+          cardsContainer.innerHTML = mensaje;
+          return;
+      }
+      
+      clientesAMostrar.forEach(c => {
+        const fila = document.createElement('tr');
+        fila.className = "border-b";
+        fila.innerHTML = `
+          <td class="px-4 py-2">${c.id}</td>
+          <td class="px-4 py-2 font-semibold">${c.nombre}</td>
+          <td class="px-4 py-2">${c.tel}</td>
+          <td class="px-4 py-2">${c.final}</td>
+          <td class="px-4 py-2 flex space-x-3">
+            <button data-id="${c.id}" class="btn-editar text-blue-600 hover:text-blue-800"><i data-feather="edit"></i></button>
+            <button data-id="${c.id}" class="btn-eliminar text-red-600 hover:text-red-800"><i data-feather="trash-2"></i></button>
+          </td>
+        `;
+        tbody.appendChild(fila);
+
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-lg shadow p-4 text-black";
+        card.innerHTML = `
+          <h3 class="font-semibold text-lg">${c.nombre}</h3>
+          <p class="text-sm text-gray-600">Tel: ${c.tel}</p>
+          <p class="text-sm mt-1">Final de Membresía: <strong>${c.final}</strong></p>
+          <div class="flex space-x-4 mt-3">
+            <button data-id="${c.id}" class="btn-editar flex-1 py-2 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center"><i data-feather="edit" class="w-4 h-4 mr-1"></i> Editar</button>
+            <button data-id="${c.id}" class="btn-eliminar flex-1 py-2 bg-red-100 text-red-600 rounded-lg flex items-center justify-center"><i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Eliminar</button>
+          </div>
+        `;
+        cardsContainer.appendChild(card);
+      });
+      
+      feather.replace();
+      agregarEventListeners();
+    }
+
+    /**
+     * Agrega los event listeners para los botones de editar y eliminar.
+     */
+    function agregarEventListeners() {
+        document.querySelectorAll('.btn-eliminar').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                abrirModalEliminar(id);
+            });
+        });
+
+        document.querySelectorAll('.btn-editar').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                abrirModalEditar(id);
+            });
+        });
+    }
+
+    // Funciones para abrir modales (Mantenidas)
+    function abrirModalEliminar(id) {
+        clienteAEliminarId = id;
+        modalConfirmar.classList.remove('hidden');
+    }
+    
+    function abrirModalEditar(id) {
+        const cliente = clientes.find(c => c.id == id);
+        if (cliente) {
+            document.getElementById('editId').value = cliente.id;
+            document.getElementById('editNombre').value = cliente.nombre;
+            document.getElementById('editTel').value = cliente.tel;
+            document.getElementById('anexarDias').value = '';
+            modalEditar.classList.remove('hidden');
+        }
+    }
+
+    // --- LÓGICA DEL MODAL DE EDICIÓN ---
+    btnCancelarModal.addEventListener('click', () => {
+        modalEditar.classList.add('hidden');
+    });
+
+    // MODIFICADO: Agrega la animación de éxito al guardar cambios
+    btnGuardarCambios.addEventListener('click', () => {
+        const id = document.getElementById('editId').value;
+        const nombre = document.getElementById('editNombre').value;
+        const tel = document.getElementById('editTel').value;
+        const diasAnexar = parseInt(document.getElementById('anexarDias').value) || 0;
+        const clienteIndex = clientes.findIndex(c => c.id == id);
+
+        if (clienteIndex > -1) {
+            clientes[clienteIndex].nombre = nombre;
+            clientes[clienteIndex].tel = tel;
+            if (diasAnexar > 0) {
+                const fechaFinalActual = new Date(clientes[clienteIndex].final + 'T00:00:00');
+                fechaFinalActual.setDate(fechaFinalActual.getDate() + diasAnexar);
+                clientes[clienteIndex].final = fechaFinalActual.toISOString().split('T')[0];
+            }
+            
+            modalEditar.classList.add('hidden');
+            renderizarClientes(clientes);
+            mostrarExito("¡Cliente Actualizado con Éxito!"); // Llama a la animación
+        }
+    });
+
+    // --- LÓGICA DEL MODAL DE ELIMINACIÓN ---
+    btnCancelarEliminar.addEventListener('click', () => {
+        modalConfirmar.classList.add('hidden');
+        clienteAEliminarId = null;
+    });
+
+    // MODIFICADO: Agrega la animación de éxito al eliminar
+    btnConfirmarEliminar.addEventListener('click', () => {
+        if (clienteAEliminarId) {
+            clientes = clientes.filter(c => c.id != clienteAEliminarId);
+            renderizarClientes(clientes);
+            modalConfirmar.classList.add('hidden');
+            mostrarExito("Cliente Eliminado Correctamente"); // Llama a la animación
+            clienteAEliminarId = null;
+        }
+    });
+
+    // --- BÚSQUEDA Y RENDERIZADO INICIAL ---
+    searchInput.addEventListener("input", function() {
+      const filtro = this.value.toLowerCase();
+      const clientesFiltrados = clientes.filter(c => c.nombre.toLowerCase().includes(filtro));
+      renderizarClientes(clientesFiltrados);
+    });
+
+    renderizarClientes(clientes);
+  </script>
+</body>
+</html>
